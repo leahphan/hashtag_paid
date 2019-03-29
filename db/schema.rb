@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_232331) do
+ActiveRecord::Schema.define(version: 2019_03_29_233451) do
+
+  create_table "images", force: :cascade do |t|
+    t.integer "user_id_id"
+    t.string "guid"
+    t.string "picture"
+    t.text "caption"
+    t.integer "likes"
+    t.integer "comments"
+    t.string "tags"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id_id"], name: "index_images_on_user_id_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
