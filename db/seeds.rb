@@ -1,4 +1,3 @@
-
 require 'json'
 
 # Load Users
@@ -7,7 +6,7 @@ parsed_users = JSON.parse(user_file)
 
 parsed_users.each do |user, |
   User.create(
-    index: user["index"],
+    id: user["index"],
     name: user["name"],
     gender: user["gender"],
     age: user["age"],
@@ -17,4 +16,3 @@ parsed_users.each do |user, |
     about: user["about"]
   )
 end
-
