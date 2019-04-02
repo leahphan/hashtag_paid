@@ -23,3 +23,12 @@ bundle exec rspec
 * Deployment instructions
 
 * ...
+
+Getting Started:
+gem install bundler
+bundle install
+rake db:migrate
+rake db:seed
+rails server
+
+
