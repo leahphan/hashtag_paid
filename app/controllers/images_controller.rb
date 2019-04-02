@@ -3,14 +3,15 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.page(params[:page]).per_page(20).order(created_at: 'DESC')
+    @q = Image.ransack(params[:q])
+    @images = @q.result.page(params[:page]).per_page(20).order(created_at: 'DESC').to_a.uniq
 
     render json: @images
   end
 
   # GET /images/1
   def show
-    render json: @image
+    render json: @image, :include => [ :user ]
   end
 
   # POST /images
@@ -41,7 +42,7 @@ class ImagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_image
-      @image = Image.find(params[:id])
+      @image = Image.includes(:user).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
