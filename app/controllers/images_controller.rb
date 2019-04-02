@@ -3,7 +3,7 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.all
+    @images = Image.page(params[:page]).per_page(20).order(created_at: 'DESC')
 
     render json: @images
   end
