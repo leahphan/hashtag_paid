@@ -11,10 +11,15 @@ Getting Started:
 
 ```rails s -p 3001```
 
+To run the tests:
+```bundle exec rspec```
+
 
 Start the frontend server:
 
 ```cd client```
+
+```yarn install```
 
 ```yarn start```
 
