@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Filtering from './Filtering';
 import Image from './Image';
 
 class Gallery extends Component {
@@ -8,6 +9,8 @@ class Gallery extends Component {
       images: [],
       loading: false,
       page: 1,
+      sortBy: null,
+      search: null,
     }
 
     window.onscroll = () => {
@@ -37,9 +40,22 @@ class Gallery extends Component {
     this.loadImages();
   }
 
-  loadImages = () => {
+  fetchUrl = () => {
+    const { sortBy } = this.state;
+
+    let url = `http://localhost:3001/images?`
+    if (sortBy) {
+      const direction = sortBy == 'user_name' || 'age' ? 'asc' : 'desc';
+      url = url + `q[s]=${sortBy} ${direction}&`
+    }
+    url = url + `page=${this.state.page}`
+
+    return url
+  }
+
+  loadImages = (params) => {
     this.setState({ loading: true }, () => {
-      fetch(`http://localhost:3001/images?page=${this.state.page}`)
+      fetch(this.fetchUrl())
         .then(res => res.json())
         .then(json => {
           this.setState({
@@ -52,28 +68,35 @@ class Gallery extends Component {
     })
   }
 
-  render() {
-    var { loading, images } = this.state;
+  handleSort = (sortBy) => {
+    this.setState({ sortBy: sortBy, images: [], page: 1 });
+    this.loadImages();
+  }
 
+  render() {
+    const { loading, images } = this.state;
 
     return (
-      <main role="main">
-        <div className="album py-5 bg-light">
-          <div className="container">
-            <div className="row">
-              {images.map((image) => (
-                <Image
-                  key={image.id}
-                  id={image.id}
-                  picture={image.picture}
-                />
-              ))}
-            </div>
+      <div>
+        <Filtering handleSort={this.handleSort} />
+        <main role="main">
+          <div className="album py-5 bg-light">
+            <div className="container">
+              <div className="row">
+                {images.map((image) => (
+                  <Image
+                    key={image.id}
+                    id={image.id}
+                    picture={image.picture}
+                  />
+                ))}
+              </div>
 
-            <div>{loading ? 'Loading...' : ''}</div>
+              <div>{loading ? 'Loading...' : ''}</div>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     )
   }
 }
