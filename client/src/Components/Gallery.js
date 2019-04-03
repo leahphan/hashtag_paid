@@ -41,12 +41,15 @@ class Gallery extends Component {
   }
 
   fetchUrl = () => {
-    const { sortBy } = this.state;
+    const { sortBy, search } = this.state;
 
     let url = `http://localhost:3001/images?`
     if (sortBy) {
-      const direction = sortBy == 'user_name' || 'age' ? 'asc' : 'desc';
+      const direction = (sortBy == ('user_name' || 'age')) ? 'asc' : 'desc';
       url = url + `q[s]=${sortBy} ${direction}&`
+    }
+    if (search) {
+      url = url + `q[user_name_cont]=${search}&`
     }
     url = url + `page=${this.state.page}`
 
@@ -68,6 +71,11 @@ class Gallery extends Component {
     })
   }
 
+  handleSearch = (search) => {
+    this.setState({ search: search, images: [], page: 1 });
+    this.loadImages();
+  }
+
   handleSort = (sortBy) => {
     this.setState({ sortBy: sortBy, images: [], page: 1 });
     this.loadImages();
@@ -78,7 +86,7 @@ class Gallery extends Component {
 
     return (
       <div>
-        <Filtering handleSort={this.handleSort} />
+        <Filtering handleSearch={this.handleSearch} handleSort={this.handleSort} />
         <main role="main">
           <div className="album py-5 bg-light">
             <div className="container">

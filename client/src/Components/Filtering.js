@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Select } from 'antd';
+import { Select, Input } from 'antd';
 const Option = Select.Option;
+const Search = Input.Search;
 
 class Filtering extends React.Component {
   constructor(props) {
@@ -10,9 +11,13 @@ class Filtering extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-sm-8 col-md-7 py-4">
+        <div className="row" style={{ paddingTop: '40px' }}>
             <div className="col-md-6">
+              <Search
+                placeholder="Search By Name"
+                onSearch={value => this.props.handleSearch(value)}
+                style={{ width: 200 }}
+              />
             </div>
             <div className="col-md-6">
               <Select placeholder="Sort By:" style={{ width: 120 }} onChange={this.props.handleSort}>
@@ -22,7 +27,6 @@ class Filtering extends React.Component {
                 <Option value="comments" key={4}>Comments</Option>
               </Select>
             </div>
-          </div>
         </div>
       </div>
     )

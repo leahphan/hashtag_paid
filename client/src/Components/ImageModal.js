@@ -56,11 +56,11 @@ class ImageModal extends Component{
       >
         <img width="280px" height="280px" src={`${picture}`} />
         <div style={{float:'right', width: '35%'}}>
-          User Name: {user.name}
-          Caption: {caption}
-          Likes: {likes}
-          Comments: {comments}
-          Tags: {tags}
+          <p><strong>User Name:</strong> {user.name}</p>
+          <p><strong>Likes:</strong> {likes}</p>
+          <p><strong>Comments:</strong> {comments}</p>
+          <p><strong>Caption:</strong> {caption.substr(0, 20)}...</p>
+          <p><strong>Tags:</strong> {tags}</p>
         </div>
       </Modal>
     )
