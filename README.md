@@ -1,6 +1,19 @@
 # README
+##<br />
+Backend:
+<br />
+Ruby 2.6.2
+<br />
+Rails 5
+<br />
+Rspec Tests
 
-Getting Started:
+##Frontend:
+<br />
+React
+
+
+##Getting Started:
 
 ```gem install bundler```
 
