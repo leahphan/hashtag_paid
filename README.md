@@ -1,5 +1,5 @@
 # README
-##<br />
+## <br />
 Backend:
 <br />
 Ruby 2.6.2
@@ -8,12 +8,12 @@ Rails 5
 <br />
 Rspec Tests
 
-##Frontend:
+## Frontend:
 <br />
 React
 
 
-##Getting Started:
+## Getting Started:
 
 ```gem install bundler```
 
@@ -29,7 +29,7 @@ To run the tests:
 ```bundle exec rspec```
 
 
-Start the frontend server:
+## Start the frontend server:
 
 ```cd client```
 
