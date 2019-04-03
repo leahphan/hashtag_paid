@@ -1,7 +1,6 @@
 # README
-## <br />
-Backend:
-<br />
+
+## Backend:
 Ruby 2.6.2
 <br />
 Rails 5
@@ -9,7 +8,6 @@ Rails 5
 Rspec Tests
 
 ## Frontend:
-<br />
 React
 
 
