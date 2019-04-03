@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Select, Input } from 'antd';
+
 const Option = Select.Option;
 const Search = Input.Search;
 
@@ -32,6 +34,11 @@ class Filtering extends React.Component {
     )
   }
 }
+
+Filtering.propTypes = {
+  handleSort: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+};
 
 export default Filtering;
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 
 class ImageModal extends Component{
@@ -65,6 +66,12 @@ class ImageModal extends Component{
       </Modal>
     )
   }
+};
+
+ImageModal.propTypes = {
+  id: PropTypes.number.isRequired,
+  visible: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default ImageModal;
