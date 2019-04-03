@@ -23,7 +23,6 @@ class ImageModal extends Component{
             image: json,
             loadingImageData: false,
           })
-          console.log(this.state.image.user)
         })
     })
   }
