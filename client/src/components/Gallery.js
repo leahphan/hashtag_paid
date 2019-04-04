@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import Filtering from './Filtering';
 import Image from './Image';
 
@@ -13,31 +14,27 @@ class Gallery extends Component {
       search: null,
     }
 
-    window.onscroll = () => {
-      const {
-        loadImages,
-        state: {
-          error,
-          loading,
-        },
-      } = this;
+  //   window.onscroll = () => {
+  //     const {
+  //       loadImages,
+  //       state: {
+  //         error,
+  //         loading,
+  //       },
+  //     } = this;
 
-      if (loading) return;
+  //     if (loading) return;
 
-      // Checks that the page has scrolled to the bottom
-      if (
-        (window.innerHeight + window.scrollY) >= (document.body.offsetHeight + 500)
-      ) {
-        this.setState({
-          page: this.state.page + 1
-        })
-        loadImages();
-      }
-    };
-  }
-
-  componentWillMount() {
-    this.loadImages();
+  //     // Checks that the page has scrolled to the bottom
+  //     if (
+  //       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight + 500)
+  //     ) {
+  //       this.setState({
+  //         page: this.state.page + 1
+  //       })
+  //       loadImages();
+  //     }
+  //   };
   }
 
   fetchUrl = () => {
@@ -57,16 +54,15 @@ class Gallery extends Component {
   }
 
   loadImages = (params) => {
-    this.setState({ loading: true }, () => {
-      fetch(this.fetchUrl())
-        .then(res => res.json())
-        .then(json => {
-          this.setState({
-            images: [
-              ...this.state.images,
-              ...json],
-            loading: false,
-          })
+    fetch(this.fetchUrl())
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          images: [
+            ...this.state.images,
+            ...json],
+          loading: false,
+          page: this.state.page + 1
         })
     })
   }
@@ -87,23 +83,29 @@ class Gallery extends Component {
     return (
       <div>
         <Filtering handleSearch={this.handleSearch} handleSort={this.handleSort} />
-        <main role="main">
-          <div className="album py-5 bg-light">
-            <div className="container">
-              <div className="row">
-                {images.map((image) => (
-                  <Image
-                    key={image.id}
-                    id={image.id}
-                    picture={image.picture}
-                  />
-                ))}
-              </div>
+          <InfiniteScroll
+            pageStart={this.state.page}
+            loadMore={this.loadImages}
+            hasMore={true}
+            loader={<div className="loader" key={0}>Loading ...</div>}
+          >
+          <main role="main">
+            <div className="album py-5 bg-light">
+              <div className="container">
+                <div className="row">
 
-              <div>{loading ? 'Loading...' : ''}</div>
+                  {images.map((image) => (
+                    <Image
+                      key={image.id}
+                      id={image.id}
+                      picture={image.picture}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </InfiniteScroll>
       </div>
     )
   }

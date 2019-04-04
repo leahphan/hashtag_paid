@@ -41,8 +41,7 @@ class Image extends React.Component {
 }
 
 Image.propTypes = {
-  key: PropTypes.func.isRequired,
-  id: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
   picture: PropTypes.string,
 };
 
