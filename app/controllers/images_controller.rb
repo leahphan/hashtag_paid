@@ -4,9 +4,13 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     @q = Image.ransack(params[:q])
-    @images = @q.result.page(params[:page]).per_page(20).order(created_at: 'DESC').to_a.uniq
+    @images = @q.result(distinct: true).paginate(page: params[:page], per_page: 20)
+    total_pages = @images.total_pages rescue 1
 
-    render json: @images
+    render json: {
+      total_pages: total_pages,
+      data: @images
+    }
   end
 
   # GET /images/1

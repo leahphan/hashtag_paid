@@ -12,29 +12,8 @@ class Gallery extends Component {
       page: 1,
       sortBy: null,
       search: null,
+      hasMore: true,
     }
-
-  //   window.onscroll = () => {
-  //     const {
-  //       loadImages,
-  //       state: {
-  //         error,
-  //         loading,
-  //       },
-  //     } = this;
-
-  //     if (loading) return;
-
-  //     // Checks that the page has scrolled to the bottom
-  //     if (
-  //       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight + 500)
-  //     ) {
-  //       this.setState({
-  //         page: this.state.page + 1
-  //       })
-  //       loadImages();
-  //     }
-  //   };
   }
 
   fetchUrl = () => {
@@ -57,23 +36,37 @@ class Gallery extends Component {
     fetch(this.fetchUrl())
       .then(res => res.json())
       .then(json => {
+        const currentPage = this.state.page + 1
+
         this.setState({
           images: [
             ...this.state.images,
-            ...json],
+            ...json.data
+          ],
           loading: false,
-          page: this.state.page + 1
+          page: currentPage,
+          hasMore: currentPage >= json.total_pages ? false : true
         })
     })
   }
 
   handleSearch = (search) => {
-    this.setState({ search: search, images: [], page: 1 });
+    this.setState({
+      search: search,
+      images: [],
+      page: 1,
+      hasMore: true,
+    });
     this.loadImages();
   }
 
   handleSort = (sortBy) => {
-    this.setState({ sortBy: sortBy, images: [], page: 1 });
+    this.setState({
+      sortBy: sortBy,
+      images: [],
+      page: 1,
+      hasMore: true,
+    });
     this.loadImages();
   }
 
@@ -86,7 +79,7 @@ class Gallery extends Component {
           <InfiniteScroll
             pageStart={this.state.page}
             loadMore={this.loadImages}
-            hasMore={true}
+            hasMore={this.state.hasMore}
             loader={<div className="loader" key={0}>Loading ...</div>}
           >
           <main role="main">
