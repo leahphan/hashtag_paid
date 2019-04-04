@@ -54,6 +54,7 @@ class ImageModal extends Component{
       <Modal
         visible={visible}
         onCancel={onCancel}
+        footer={null}
       >
         <img width="280px" height="280px" src={`${picture}`} />
         <div style={{float:'right', width: '35%'}}>

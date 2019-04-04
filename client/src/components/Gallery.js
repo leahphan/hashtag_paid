@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import Filtering from './Filtering';
 import Image from './Image';
+import { BackTop } from 'antd';
 
 class Gallery extends Component {
   constructor(props) {
@@ -99,6 +100,7 @@ class Gallery extends Component {
             </div>
           </main>
         </InfiniteScroll>
+        <BackTop />
       </div>
     )
   }
